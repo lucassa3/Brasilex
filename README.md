@@ -7,4 +7,4 @@ The language must attend the following goals:
 2. Strongly typed;
 3. Mainly python syntax but with { } to indicate statement blocks;
 4. Syntax 100% brazillian portuguese;
-5. Must include while loop, functions, variables and i/o commands;
+5. Must include while loop, conditionals, variables and i/o commands;
