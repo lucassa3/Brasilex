@@ -1,0 +1,35 @@
+from rply import LexerGenerator
+
+def tokenize():
+	lg = LexerGenerator()
+
+	lg.add('NUMBER', r'\d+')
+	lg.add('PLUS', r'\+')
+	lg.add('MINUS', r'-')
+	lg.add('MUL', r'\*')
+	lg.add('DIV', r'/')
+	lg.add('OPEN_PAR', r'\(')
+	lg.add('CLOSE_PAR', r'\)')
+	lg.add('OPEN_BLOCK', r'\{')
+	lg.add('CLOSE_BLOCK', r'\}')
+	lg.add('PRINCIPAL', r'principal')
+	lg.add('VAZIO', r'vazio')
+	lg.add('IMPRIME', r'imprime')
+	lg.add('VARIAVEL', r'var')
+	lg.add('CMD_END', r';')
+	lg.add('GE', r'>=')
+	lg.add('LE', r'<=')
+	lg.add('EQUAL', r'=')
+	lg.add('EQUALS', r'==')
+	lg.add('GREATER', r'>')
+	lg.add('LESS', r'<')
+	lg.add('ENQUANTO', r'enquanto')
+	lg.add('E', r'e')
+	lg.add('OU', r'ou')
+	lg.add('SENAO', r'senao')
+	lg.add('SE', r'se')
+
+	lg.add('IDENTIFIER', "[a-zA-Z_][a-zA-Z0-9_]*")
+	lg.ignore('\s+')
+
+	return lg.build()
