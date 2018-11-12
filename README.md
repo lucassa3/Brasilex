@@ -1,7 +1,13 @@
 # Brasilex
-A high productivity compiled language based on brazillian language.  
+Uma linguagem compilada de alta produtividade adequada a lingua brasileira e sintaxe similar a C
 
-The language must attend the following goals:
+# Introdução
+A ideia ao desenvolver esta lingaugem foi aproximar iniciantes em programação que falam portgues (e não são muito habituados ao ingles) a estabelecer um primeiro contato com a popular linguagem de programação C. O objetivo é fazer entender os componentes básicos sem a barreira da lingua estrangeira, para que, futuramente, este passo possa ser dado com maior tranquilidade, já conhecendo a estrutura geral da sintaxe da linguagem.
+
+Ao mesmo tempo, o desenvolvimento desta linguagem se prova uma otima oportunidade de aprendizado sobre linguagens, gramaticas e a construção de um compilador, componentes estes estudados em sala de aula e aprofundados com o auxilio deste projeto.
+
+
+# Recursos
 
 1. Be Compiled;
 2. Strongly typed;
