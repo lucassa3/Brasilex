@@ -9,8 +9,45 @@ Ao mesmo tempo, o desenvolvimento desta linguagem se prova uma otima oportunidad
 
 # Recursos
 
-1. Be Compiled;
-2. Strongly typed;
-3. Mainly python syntax but with { } to indicate statement blocks;
-4. Syntax 100% brazillian portuguese;
-5. Must include while loop, conditionals, variables and i/o commands;
+1. Compilado;
+2. sem tipagem forte nem declaração de variável;
+3. Sintaxe extremamente parecida com C com mudança de alguns tokens para português;
+4. 100% PT-BR;
+5. Inclue loops, blocos condicionais e imprime variaveis;
+
+## EBNF:
+
+```ebnf
+program = "vazio", "principal", "(", ")", commands;
+commands = "{", {command}, "}" ;
+command = assignment | print | if_else | while | commands;
+
+assignment = identifier , "=" , (expression | scanf), ";";
+print = "imprime" , "(", expression , ")", ";";
+if_else = "se", "(", bool_exp, ")", commands, ["senao", commands];
+while = "enquanto", "(", bool_exp, ")", commands;
+
+bool_exp = bool_term, {"ou", bool_term}; 
+bool_term = bool_factor, {"e", bool_factor};
+bool_factor = rel_expr;
+rel_expr = expression, {("<" | ">" | "=="), expression};
+expression = term, { ("+" | "-"), term };
+term = factor , { ("*" | "/"), factor };
+factor = (("+" | "-") , factor) | num | ("(" , expression , ")") | identifier;
+
+scanf = "scanf", "(", ")";
+identifier = letter, { letter | digit | "_" };
+num = digit, {digit};
+letter = "a" .. "Z";
+digit = "0" .. "9";
+```
+
+## Syntax Diagrams
+
+### AST version:
+
+![Alt text](imgs/syntax_diagram2.png?raw=true "SYNTAX DIAGRAM")
+
+### Assembly Version:
+
+![Alt text](imgs/syntax_diagram.png?raw=true "SYNTAX DIAGRAM")

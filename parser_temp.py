@@ -3,7 +3,7 @@ from nodes import *
 
 
 def parse():
-    pg = ParserGenerator(
+    pg=ParserGenerator(
         [
             'NUMBER', 
             'OPEN_PAR', 
@@ -112,7 +112,6 @@ def parse():
     @pg.production('rel_expr : expression LE expression')
     @pg.production('rel_expr : expression EQUALS expression')
     def rel_expr(p):
-        print("cai aqui")
         result = BinOp(p[1])
         result.set_child(p[0])
         result.set_child(p[2])
