@@ -2,10 +2,9 @@
 Uma linguagem compilada de alta produtividade adequada a lingua brasileira e sintaxe similar a C
 
 # Introdução
-A ideia ao desenvolver esta lingaugem foi aproximar iniciantes em programação que falam portgues (e não são muito habituados ao ingles) a estabelecer um primeiro contato com a popular linguagem de programação C. O objetivo é fazer entender os componentes básicos sem a barreira da lingua estrangeira, para que, futuramente, este passo possa ser dado com maior tranquilidade, já conhecendo a estrutura geral da sintaxe da linguagem.
+A ideia ao desenvolver esta linguagem foi aproximar iniciantes em programação que falam portgues (e não são muito habituados ao ingles) a estabelecer um primeiro contato com a popular linguagem de programação C. O objetivo é fazer entender os componentes básicos sem a barreira da lingua estrangeira, para que, futuramente, este passo possa ser dado com maior tranquilidade, já conhecendo a estrutura geral da sintaxe da linguagem.
 
 Ao mesmo tempo, o desenvolvimento desta linguagem se prova uma otima oportunidade de aprendizado sobre linguagens, gramaticas e a construção de um compilador, componentes estes estudados em sala de aula e aprofundados com o auxilio deste projeto.
-
 
 # Recursos
 
@@ -14,6 +13,25 @@ Ao mesmo tempo, o desenvolvimento desta linguagem se prova uma otima oportunidad
 3. Sintaxe extremamente parecida com C com mudança de alguns tokens para português;
 4. 100% PT-BR;
 5. Inclue loops, blocos condicionais e imprime variaveis;
+
+# Utilização:
+
+É necessário ter as seguintes dependências instaladas;
+
+* Python 3.6 ou superior;
+* instalador de pacotes do python conda;
+* Instalar rply:
+
+```
+$ conda install -c conda-forge rply
+```
+
+para rodar o programa com seu arquivo de código:
+
+
+```
+$ python main.py <seu_codigo.c>
+```
 
 ## EBNF:
 
