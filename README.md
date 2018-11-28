@@ -42,12 +42,6 @@ letter = "a" .. "Z";
 digit = "0" .. "9";
 ```
 
-## Syntax Diagrams
+## Diagrama Sintatico:
 
-### AST version:
-
-![Alt text](imgs/syntax_diagram2.png?raw=true "SYNTAX DIAGRAM")
-
-### Assembly Version:
-
-![Alt text](imgs/syntax_diagram.png?raw=true "SYNTAX DIAGRAM")
+![Alt text](imgs/brasilex_ds.png?raw=true "SYNTAX DIAGRAM")
