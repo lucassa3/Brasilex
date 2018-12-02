@@ -13,11 +13,10 @@ def parse():
             'MUL', 
             'DIV', 
             'OPEN_BLOCK', 
-            'CLOSE_BLOCK', 
-            'PRINCIPAL', 
-            'VAZIO', 
-            'IMPRIME', 
-            'VARIAVEL', 
+            'CLOSE_BLOCK',
+            'COMMA', 
+            'IMPRIME',
+            'ESCANEIA',
             'CMD_END', 
             'EQUAL', 
             'IDENTIFIER', 
@@ -29,7 +28,8 @@ def parse():
             'E', 
             'OU', 
             'SE', 
-            'SENAO', 
+            'SENAO',
+            'NAO', 
             'ENQUANTO'
         ],
 
@@ -41,9 +41,34 @@ def parse():
     )
 
 
-    @pg.production('program : VAZIO PRINCIPAL OPEN_BLOCK commands CLOSE_BLOCK') #tem que mudar pra commands depois
+    @pg.production('program : commands') 
+    def program(p):   
+        temp = p[0].children[0]
+        p[0].children[0] = FuncCallNode(value='principal')
+        p[0].set_child(temp)
+        return p[0]
+
+
+    @pg.production('command : IDENTIFIER OPEN_PAR args CLOSE_PAR OPEN_BLOCK commands CLOSE_BLOCK') 
     def program(p):
-        return p[3]
+        result = FuncDecNode(value=p[0].getstr(), args=p[2][::-1])
+        result.set_child(p[5])
+        return result
+
+    @pg.production('args : IDENTIFIER')
+    def commands_single(p):
+        result = [p[0].getstr()]
+        return result
+
+    @pg.production('args :')
+    def commands_single(p):
+        result = []
+        return result
+    
+    @pg.production('args : IDENTIFIER COMMA args') 
+    def program(p):
+        p[2].append(p[0].getstr())
+        return p[2]
 
     @pg.production('commands : command')
     def commands_single(p):
@@ -53,13 +78,8 @@ def parse():
 
     @pg.production('commands : command commands')
     def commands(p):
-        if type(p[1]) is CommandsNode:
-            com = p[1]
-        else:
-            com = CommmandsNode(p[1])
-        
-        com.set_child(p[0])
-        return com
+        p[1].set_child(p[0])
+        return p[1]
 
     @pg.production('command : IMPRIME OPEN_PAR expression CLOSE_PAR CMD_END')
     def print_com(p):
@@ -76,7 +96,9 @@ def parse():
         result = CondNode()
         result.set_child(p[2])
         result.set_child(p[5])
+
         return result
+
 
     @pg.production('command : SE OPEN_PAR boolean_expression CLOSE_PAR OPEN_BLOCK commands CLOSE_BLOCK SENAO OPEN_BLOCK commands CLOSE_BLOCK')
     def if_else_com(p):
@@ -93,12 +115,55 @@ def parse():
         result.set_child(p[5])
         return result
 
-    @pg.production('boolean_expression : rel_expr')
+    @pg.production('command : IDENTIFIER OPEN_PAR call_args CLOSE_PAR CMD_END')
+    def while_com22(p):
+        result = FuncCallNode(value=p[0].getstr(), call_args=p[2][::-1])
+        return result
+
+    @pg.production('call_args : expression')
+    def commands_single(p):
+        result = [p[0]]
+        return result
+
+    @pg.production('call_args :')
+    def commands_single(p):
+        result = []
+        return result
+    
+    @pg.production('call_args : expression COMMA call_args') 
+    def program(p):
+        p[2].append(p[0])
+        return p[2]
+
+
+    @pg.production('boolean_expression : bool_term')
+    @pg.production('bool_term : bool_factor')
+    @pg.production('bool_factor : rel_expr')
+    @pg.production('expression : term')
+    @pg.production('term : factor')
     def boolean_expr(p):
         return p[0]
 
-    @pg.production('boolean_expression : rel_expr OU rel_expr')
-    @pg.production('boolean_expression : rel_expr E rel_expr')
+    @pg.production('bool_factor : NAO bool_factor')
+    @pg.production('factor : PLUS factor')
+    @pg.production('factor : MINUS factor')
+    def boolean_expr_fullasdasd(p):
+        result = UnOp(p[0])
+        result.set_child(p[1])
+
+        return result
+
+    @pg.production('factor : ESCANEIA OPEN_PAR CLOSE_PAR')
+    def if_com(p):
+        result = ScanNode()
+        return result
+
+    @pg.production('boolean_expression : bool_term OU boolean_expression')
+    @pg.production('bool_term : bool_factor E bool_term')
+    @pg.production('expression : term PLUS expression')
+    @pg.production('expression : term MINUS expression')
+    @pg.production('term : factor MUL term')
+    @pg.production('term : factor DIV term')
     def boolean_expr_full(p):
         result = BinOp(p[1])
         result.set_child(p[0])
@@ -118,27 +183,17 @@ def parse():
 
         return result
 
-    @pg.production('expression : NUMBER')
+    @pg.production('factor : NUMBER')
     def expression_number(p):
         return IntVal(int(p[0].getstr()))
 
-    @pg.production('expression : IDENTIFIER')
+    @pg.production('factor : IDENTIFIER')
     def expression_number(p):
         return IdentifierNode(p[0].getstr())
 
-    @pg.production('expression : OPEN_PAR expression CLOSE_PAR')
+    @pg.production('factor : OPEN_PAR expression CLOSE_PAR')
+    @pg.production('bool_factor : OPEN_PAR boolean_expression CLOSE_PAR')
     def expression_par(p):
         return p[1]
-
-    @pg.production('expression : expression PLUS expression')
-    @pg.production('expression : expression MINUS expression')
-    @pg.production('expression : expression MUL expression')
-    @pg.production('expression : expression DIV expression')
-    def expression_binop(p):
-        result = BinOp(p[1])
-        result.set_child(p[0])
-        result.set_child(p[2])
-
-        return result
 
     return pg.build()

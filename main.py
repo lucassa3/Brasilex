@@ -10,8 +10,5 @@ parser = parse()
 
 with open(sys.argv[1], 'r') as myfile:
     program = myfile.read().replace('\n', '')
-    for token in lexer.lex(program):
-        print(token)
-
     parser.parse(lexer.lex(program)).eval(SymbolTable())
 
