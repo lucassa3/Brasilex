@@ -13,8 +13,8 @@ Ao mesmo tempo, o desenvolvimento desta linguagem se prova uma otima oportunidad
 3. Sintaxe extremamente parecida com C com mudança de alguns tokens para português;
 4. 100% PT-BR;
 5. Inclue loops, blocos condicionais e imprime variaveis;
-6. Inclue Funcoes (NOVO)
-7. Inclue scan (NOVO)
+6. Inclue Funcoes (NOVO);
+7. Inclue scan (NOVO);
 
 # Utilização:
 
