@@ -36,9 +36,11 @@ $ python main.py <seu_codigo.c>
 ## EBNF:
 
 ```ebnf
-program = "vazio", "principal", "(", ")", commands;
+funcdec = identifer, "(", ")", commands;
 commands = "{", {command}, "}" ;
-command = assignment | print | if_else | while | commands;
+command = assignment | print | if_else | while | commands | funcdec | funccall;
+
+funccall = identifier, "(", {args}, ")", ";"
 
 assignment = identifier , "=" , (expression | scanf), ";";
 print = "imprime" , "(", expression , ")", ";";
@@ -53,7 +55,7 @@ expression = term, { ("+" | "-"), term };
 term = factor , { ("*" | "/"), factor };
 factor = (("+" | "-") , factor) | num | ("(" , expression , ")") | identifier;
 
-scanf = "scanf", "(", ")";
+scanf = "escaneia", "(", ")";
 identifier = letter, { letter | digit | "_" };
 num = digit, {digit};
 letter = "a" .. "Z";
